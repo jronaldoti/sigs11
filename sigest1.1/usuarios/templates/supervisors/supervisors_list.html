@@ -1,0 +1,9 @@
+<h1>Articles</h1>
+<ul>
+{% for supervisors in object_list %}
+    <li> </li>
+     <a href="{% url 'supervisor_detail' supervisors.pk %}">{{ supervisors.user}}</a>
+{% empty %}
+    <li>Sem supervisores.</li>
+{% endfor %}
+</ul>

@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'usuarios',
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'usuarios'
+    'django.contrib.auth',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +122,11 @@ STATIC_URL = '/static/'
 
 
 AUTH_USER_MODEL ='usuarios.Usuario'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER ='admsigest@gmail.com'
+EMAIL_HOST_PASSWORD = 'Deus1234#'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

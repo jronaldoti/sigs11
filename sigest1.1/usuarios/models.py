@@ -35,6 +35,7 @@ class UserManager(BaseUserManager):
             return user
 
 class Usuario(AbstractBaseUser,PermissionsMixin):
+    first_name = models.CharField(_('Nome completo'), max_length=255,  help_text=_('Defina seu nome completo, exemplo: Fulano da Silva'))
     username = models.CharField(_('usuario'), max_length=15, unique=True, help_text=_('Requer 15 caracteres ou menos'))
     password = models.CharField(_('senha'), max_length=15, help_text=('Digite uma senha com 15 caracteres ou menos'))
     email = models.EmailField(_('email'), max_length=255, unique=True)
@@ -67,23 +68,22 @@ class Usuario(AbstractBaseUser,PermissionsMixin):
     USERNAME_FIELD = 'username'
 
     REQUIRED_FIELDS = ['email', 'matricula', 'is_staff', 'is_superuser']
-
     class Meta:
         verbose_name = _('usuario')
         verbose_name_plural = _('usuarios')
 
 class Student(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
 
 
 
 class Advisor(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
 
 
 
 class Supervisor(models.Model):
-    user = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True)
 
 
 

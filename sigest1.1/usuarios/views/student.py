@@ -3,12 +3,14 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView,ListView,UpdateView,DetailView
+
+from usuarios.forms import StudentUpdateForm
 from ..models import Usuario,Student
 from ..forms import StudentSignupForm
-from django.db.models import Count
+from django.contrib import messages
 
 class StudentSignupView(CreateView):
-    model = Usuario
+    model = Student
     form_class= StudentSignupForm
     template_name = 'registration/signup_form_student.html'
 
@@ -20,7 +22,7 @@ class StudentSignupView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('students:student_list')
+        return redirect('student_list')
 
 class StudentListView(ListView):
     model = Student
@@ -32,12 +34,16 @@ class StudentListView(ListView):
 
 
 class StudentDetail(DetailView):
-    model = Student
-    context_object_name = 'student'
+    model = Usuario
+    context_object_name = 'student_detail'
     template_name = 'students/student_detail.html'
 
 
-    def student_detail_view(request, primary_key):
-        student = get_object_or_404(Student,pk=primary_key)
-        return render(request, 'students/student_detail.html', context={'student':student})
+
+class StudentUpdate(UpdateView):
+    model = Usuario
+    form_class = StudentUpdateForm
+    context_object_name = 'student_update'
+    template_name = 'students/student_update.html'
+    success_url = reverse_lazy('student_list')
 
